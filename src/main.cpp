@@ -1,20 +1,26 @@
-#include <iostream>
 #include <raylib.h>
 
+#include <iostream>
+
+#include "game.hpp"
 using namespace std;
 
-int main () {
+int main() {
+    const int screenWidth = 900;
+    const int screenHeight = 900;
 
-    const int screenWidth = 1200;
-    const int screenHeight = 800;
-
-    InitWindow(screenWidth, screenHeight, "program");
+    InitWindow(screenWidth, screenHeight, "tic tac toe");
     SetTargetFPS(120);
 
-    while (WindowShouldClose() == false){
+    Game game;
+    while (!WindowShouldClose()) {
+        game.HandleInput();
+        game.Update();
+
         BeginDrawing();
         ClearBackground(BLACK);
-
+        game.BoardDraw();
+        game.GameDraw();
         EndDrawing();
     }
 
