@@ -1,6 +1,7 @@
 #pragma once 
 #include <raylib.h>
 #include <vector>
+#include <iostream>
 
 class Game {
     public:
@@ -11,5 +12,6 @@ class Game {
      void Update();
     private:
     std::vector<int> fields;
+    bool isWiningMove(int fieldPos);
     
 };
