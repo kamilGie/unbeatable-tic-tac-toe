@@ -1,15 +1,11 @@
-#include <raylib.h>
-
-#include <iostream>
-
+#include "raylib.h"
 #include "game.hpp"
-using namespace std;
 
 int main() {
     const int screenWidth = 900;
     const int screenHeight = 900;
 
-    InitWindow(screenWidth, screenHeight, "tic tac toe");
+    InitWindow(screenWidth, screenHeight, "TICTACTOE");
     SetTargetFPS(120);
 
     Game game;
@@ -24,5 +20,4 @@ int main() {
     }
 
     CloseWindow();
-    return 0;
 }

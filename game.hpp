@@ -1,7 +1,6 @@
 #pragma once
 #include <raylib.h>
 
-#include <iostream>
 #include <vector>
 
 class Game {
@@ -13,11 +12,13 @@ class Game {
     void GameInit();
 
    private:
-    std::vector<int> fields;
     bool isWiningMove();
     bool isWinningTriplet(int a, int b, int c);
-    void  computeXMove();
+    void computeXMove();
+    void firstMoves();
 
    private:
+    std::vector<int> fields;
     int Winner;
+    int turn;
 };
