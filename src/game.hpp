@@ -12,6 +12,7 @@ class Game {
      void Update();
     private:
     std::vector<int> fields;
-    bool isWiningMove(int fieldPos);
+    bool isWiningMove();
+    bool isWinningTriplet(int a,int b,int c);
     
 };

@@ -33,7 +33,7 @@ void Game::HandleInput() {
         int fieldPos = GetMouseX() / 300 + GetMouseY() / 300 * 3;
         if (!fields[fieldPos]) {
             fields[fieldPos] = 1;
-            if (isWiningMove(fieldPos)) {
+            if (isWiningMove()) {
                 std::cout << "o won" << std::endl;
                 fields.assign(9, 0);
             }
@@ -45,7 +45,7 @@ void Game::HandleInput() {
         int fieldPos = GetMouseX() / 300 + GetMouseY() / 300 * 3;
         if (!fields[fieldPos]) {
             fields[fieldPos] = 2;
-            if (isWiningMove(fieldPos)) {
+            if (isWiningMove()) {
                 std::cout << "X won" << std::endl;
                 fields.assign(9, 0);
             }
@@ -56,9 +56,13 @@ void Game::HandleInput() {
 void Game::Update() {
 }
 
-bool Game::isWiningMove(int fieldPos) {
-    bool isDiagonallyWin = false;
-    bool isHorizontallyWin = false;
-    bool isVerticalWin = false;
+bool Game::isWiningMove() {
+    bool isDiagonallyWin = isWinningTriplet(fields[0], fields[4], fields[8]) || isWinningTriplet(fields[4], fields[2], fields[6]);
+    bool isHorizontallyWin = isWinningTriplet(fields[0],fields[1],fields[2])||isWinningTriplet(fields[3],fields[4],fields[5])||isWinningTriplet(fields[6],fields[7],fields[8]);
+    bool isVerticalWin =  isWinningTriplet(fields[0],fields[3],fields[6])||isWinningTriplet(fields[1],fields[4],fields[7])||isWinningTriplet(fields[2],fields[5],fields[8]);
     return isDiagonallyWin || isHorizontallyWin || isVerticalWin;
+}
+
+bool Game::isWinningTriplet(int a, int b, int c) {
+    return a != 0 && (a == b && b == c);
 }
