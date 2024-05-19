@@ -27,12 +27,13 @@ void Game::GameDraw() {
             DrawLineEx({x + 250, y}, {x, y + 250}, 20, RED);
         }
     }
-    if(Winner==1){
+    if (Winner == 1) {
         DrawText("O WIN", 333, 410, 80, WHITE);
         DrawText("press r to reset", 318, 500, 30, WHITE);
     }
-    if(Winner==2){
+    if (Winner == 2) {
         DrawText("X WIN", 333, 410, 80, WHITE);
+        DrawText("press r to reset", 318, 500, 30, WHITE);
     }
 }
 
@@ -42,30 +43,26 @@ void Game::HandleInput() {
         Winner = 0;
     }
 
-    if(Winner){ return; }
-
-    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+    if (!Winner && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
         int fieldPos = GetMouseX() / 300 + GetMouseY() / 300 * 3;
         if (!fields[fieldPos]) {
             fields[fieldPos] = 1;
             if (isWiningMove()) {
                 Winner = 1;
-                std::cout << "o won" << std::endl;
+            } else {
+                computeXMove();
             }
         }
     }
+}
 
-    // test only
-    if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT)) {
-        int fieldPos = GetMouseX() / 300 + GetMouseY() / 300 * 3;
-        if (!fields[fieldPos]) {
-            fields[fieldPos] = 2;
-            if (isWiningMove()) {
-                Winner = 2;
-                std::cout << "X won" << std::endl;
-            }
-        }
-    }
+void Game::computeXMove() {
+    int xMove;
+    do {
+        xMove = GetRandomValue(0, 8);
+    } while (fields[xMove]);
+    fields[xMove] = 2;
+    if (isWiningMove()) { Winner = 2; }
 }
 
 void Game::Update() {

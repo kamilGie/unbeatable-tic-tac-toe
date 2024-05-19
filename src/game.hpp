@@ -16,7 +16,8 @@ class Game {
     std::vector<int> fields;
     bool isWiningMove();
     bool isWinningTriplet(int a, int b, int c);
-
+    void  computeXMove();
+    
    private:
     int Winner;
 };
