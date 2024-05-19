@@ -1,18 +1,22 @@
-#pragma once 
+#pragma once
 #include <raylib.h>
-#include <vector>
+
 #include <iostream>
+#include <vector>
 
 class Game {
-    public:
-     Game();
-     void BoardDraw();
-     void GameDraw();
-     void HandleInput();
-     void Update();
-    private:
+   public:
+    Game();
+    void BoardDraw();
+    void GameDraw();
+    void HandleInput();
+    void Update();
+
+   private:
     std::vector<int> fields;
     bool isWiningMove();
-    bool isWinningTriplet(int a,int b,int c);
-    
+    bool isWinningTriplet(int a, int b, int c);
+
+   private:
+    int Winner;
 };

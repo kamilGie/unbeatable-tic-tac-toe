@@ -2,6 +2,7 @@
 
 Game::Game() {
     fields.assign(9, 0);
+    Winner = 0;
 }
 
 void Game::BoardDraw() {
@@ -26,16 +27,30 @@ void Game::GameDraw() {
             DrawLineEx({x + 250, y}, {x, y + 250}, 20, RED);
         }
     }
+    if(Winner==1){
+        DrawText("O WIN", 333, 410, 80, WHITE);
+        DrawText("press r to reset", 318, 500, 30, WHITE);
+    }
+    if(Winner==2){
+        DrawText("X WIN", 333, 410, 80, WHITE);
+    }
 }
 
 void Game::HandleInput() {
+    if (IsKeyDown(KEY_R)) {
+        fields.assign(9, 0);
+        Winner = 0;
+    }
+
+    if(Winner){ return; }
+
     if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
         int fieldPos = GetMouseX() / 300 + GetMouseY() / 300 * 3;
         if (!fields[fieldPos]) {
             fields[fieldPos] = 1;
             if (isWiningMove()) {
+                Winner = 1;
                 std::cout << "o won" << std::endl;
-                fields.assign(9, 0);
             }
         }
     }
@@ -46,8 +61,8 @@ void Game::HandleInput() {
         if (!fields[fieldPos]) {
             fields[fieldPos] = 2;
             if (isWiningMove()) {
+                Winner = 2;
                 std::cout << "X won" << std::endl;
-                fields.assign(9, 0);
             }
         }
     }
@@ -58,8 +73,8 @@ void Game::Update() {
 
 bool Game::isWiningMove() {
     bool isDiagonallyWin = isWinningTriplet(fields[0], fields[4], fields[8]) || isWinningTriplet(fields[4], fields[2], fields[6]);
-    bool isHorizontallyWin = isWinningTriplet(fields[0],fields[1],fields[2])||isWinningTriplet(fields[3],fields[4],fields[5])||isWinningTriplet(fields[6],fields[7],fields[8]);
-    bool isVerticalWin =  isWinningTriplet(fields[0],fields[3],fields[6])||isWinningTriplet(fields[1],fields[4],fields[7])||isWinningTriplet(fields[2],fields[5],fields[8]);
+    bool isHorizontallyWin = isWinningTriplet(fields[0], fields[1], fields[2]) || isWinningTriplet(fields[3], fields[4], fields[5]) || isWinningTriplet(fields[6], fields[7], fields[8]);
+    bool isVerticalWin = isWinningTriplet(fields[0], fields[3], fields[6]) || isWinningTriplet(fields[1], fields[4], fields[7]) || isWinningTriplet(fields[2], fields[5], fields[8]);
     return isDiagonallyWin || isHorizontallyWin || isVerticalWin;
 }
 
