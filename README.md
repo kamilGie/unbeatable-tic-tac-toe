@@ -10,3 +10,5 @@ To play, clone the repository and navigate to the game directory:
 
 3. Run the game:
     ./GAME
+
+Please note that this is a quick project completed in a few hours, so there's nothing extensive there.
