@@ -10,14 +10,14 @@ class Game {
     void BoardDraw();
     void GameDraw();
     void HandleInput();
-    void Update();
+    void GameInit();
 
    private:
     std::vector<int> fields;
     bool isWiningMove();
     bool isWinningTriplet(int a, int b, int c);
     void  computeXMove();
-    
+
    private:
     int Winner;
 };

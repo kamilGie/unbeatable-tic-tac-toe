@@ -1,8 +1,13 @@
 #include "game.hpp"
 
 Game::Game() {
+    GameInit();
+}
+
+void Game::GameInit() {
     fields.assign(9, 0);
     Winner = 0;
+    if(GetRandomValue(0,1)){computeXMove();}
 }
 
 void Game::BoardDraw() {
@@ -38,10 +43,7 @@ void Game::GameDraw() {
 }
 
 void Game::HandleInput() {
-    if (IsKeyDown(KEY_R)) {
-        fields.assign(9, 0);
-        Winner = 0;
-    }
+    if (IsKeyPressed(KEY_R)) { GameInit(); }
 
     if (!Winner && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
         int fieldPos = GetMouseX() / 300 + GetMouseY() / 300 * 3;
@@ -63,9 +65,6 @@ void Game::computeXMove() {
     } while (fields[xMove]);
     fields[xMove] = 2;
     if (isWiningMove()) { Winner = 2; }
-}
-
-void Game::Update() {
 }
 
 bool Game::isWiningMove() {
